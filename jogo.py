@@ -18,3 +18,13 @@ def eventos():
 def atualiza(tela):
     tela.fill((0, 0, 0))
     pygame.display.update()
+
+def game_loop():
+    tela = inicializa()
+
+    while eventos():
+        atualiza(tela)
+
+    pygame.quit()
+
+game_loop()
