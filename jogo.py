@@ -9,6 +9,7 @@ def inicializa():
 
     assets = {}
     assets['fundo'] = pygame.image.load('img/Backgroud.jpg')
+    assets['fundo_agua'] = pygame.image.load('img/Background_agua.png')
     assets['sprite_idle'] = pygame.image.load('img/idle_personagem.jpg')
     assets['sprite_move'] = pygame.image.load('img/mov_personagem.jpg')
     assets['sprite_jump'] = pygame.image.load('img/jump_personagem.jpg')
@@ -43,6 +44,14 @@ def desenha(tela, assets, state):
         tela.blit(assets['fundo'], (i*bg_width + state['scroll'], 0))
     state['scroll'] -= 2
     if abs(state['scroll']) > bg_width:
+        state['scroll'] = 0
+    
+    bg_width_agua = assets['fundo_agua'].get_width()
+    tiles_agua = math.ceil(1200/bg_width_agua) + 1
+    for i in range(0, tiles_agua):
+        tela.blit(assets['fundo_agua'], (i*bg_width_agua + state['scroll'], 414))
+    state['scroll'] -= 2
+    if abs(state['scroll']) > bg_width_agua:
         state['scroll'] = 0
     pygame.display.update()
 
