@@ -11,20 +11,20 @@ class Jogo:
         self.assets = {}
         self.assets['fundo'] = pygame.image.load('img/Backgroud.jpg')
         self.assets['fundo_agua'] = pygame.image.load('img/Background_agua.png')
-        self.assets['sprite_idle'] = pygame.image.load('img/idle_personagem.jpg')
-        self.assets['sprite_move'] = pygame.image.load('img/mov_personagem.jpg')
-        self.assets['sprite_jump'] = pygame.image.load('img/jump_personagem.jpg')
-        self.assets['sprite_dano'] = pygame.image.load('img/dano_personagem.jpg')
-        self.assets['sprite_attack'] = pygame.image.load('img/attk1_personagem.jpg')
-        self.assets['sprite_attack2'] = pygame.image.load('img/attk2_personagem.jpg')
-        self.assets['sprite_morte'] = pygame.image.load('img/morte_personagem.jpg')
-        self.assets['idle'] = self.load_spritesheet(self.assets['sprite_idle'], 1, 6)
-        self.assets['move'] = self.load_spritesheet(self.assets['sprite_move'], 1, 7)
-        self.assets['jump'] = self.load_spritesheet(self.assets['sprite_jump'], 1, 8)
-        self.assets['dano'] = self.load_spritesheet(self.assets['sprite_dano'], 1, 2)
-        self.assets['attack'] = self.load_spritesheet(self.assets['sprite_attack'], 1, 5)
-        self.assets['attack2'] = self.load_spritesheet(self.assets['sprite_attack2'], 1, 5)
-        self.assets['morte'] = self.load_spritesheet(self.assets['sprite_morte'], 1, 4)
+        self.assets['jogador_idle'] = pygame.image.load('img/idle_personagem.jpg')
+        self.assets['jogador_move'] = pygame.image.load('img/mov_personagem.jpg')
+        self.assets['jogador_jump'] = pygame.image.load('img/jump_personagem.jpg')
+        self.assets['jogador_dano'] = pygame.image.load('img/dano_personagem.jpg')
+        self.assets['jogador_attack'] = pygame.image.load('img/attk1_personagem.jpg')
+        self.assets['jogador_attack2'] = pygame.image.load('img/attk2_personagem.jpg')
+        self.assets['jogador_morte'] = pygame.image.load('img/morte_personagem.jpg')
+        self.assets['idle'] = self.load_spritesheet(self.assets['jogador_idle'], 1, 6)
+        self.assets['move'] = self.load_spritesheet(self.assets['jogador_move'], 1, 7)
+        self.assets['jump'] = self.load_spritesheet(self.assets['jogador_jump'], 1, 8)
+        self.assets['dano'] = self.load_spritesheet(self.assets['jogador_dano'], 1, 2)
+        self.assets['attack'] = self.load_spritesheet(self.assets['jogador_attack'], 1, 5)
+        self.assets['attack2'] = self.load_spritesheet(self.assets['jogador_attack2'], 1, 5)
+        self.assets['morte'] = self.load_spritesheet(self.assets['jogador_morte'], 1, 4)
 
         self.state = {}
         self.state['scroll'] = 0
@@ -64,13 +64,3 @@ class Jogo:
         if abs(self.state['scroll']) > bg_width_agua:
             self.state['scroll'] = 0
         pygame.display.update()
-
-
-class Personagem:
-    def __init__(self, assets):
-        pass
-
-jogo = Jogo()
-while jogo.eventos():
-    jogo.desenha()
-pygame.quit()
