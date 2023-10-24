@@ -1,13 +1,32 @@
 import pygame
+import math
 from constantes import *
 
 def inicializa():
     pygame.init()
-    tela = pygame.display.set_mode((800, 600), 0, 0)
+    tela = pygame.display.set_mode((1200, 600), 0, 0)
     pygame.display.set_caption('Jogo')
 
     assets = {}
-    return tela
+    assets['fundo'] = pygame.image.load('img/Backgroud.jpg')
+    assets['sprite_idle'] = pygame.image.load('img/idle_personagem.jpg')
+    assets['sprite_move'] = pygame.image.load('img/mov_personagem.jpg')
+    assets['sprite_jump'] = pygame.image.load('img/jump_personagem.jpg')
+    assets['sprite_dano'] = pygame.image.load('img/dano_personagem.jpg')
+    assets['sprite_attack'] = pygame.image.load('img/attk1_personagem.jpg')
+    assets['sprite_attack2'] = pygame.image.load('img/attk2_personagem.jpg')
+    assets['sprite_morte'] = pygame.image.load('img/morte_personagem.jpg')
+    assets['idle'] = load_spritesheet(assets['sprite_idle'], 1, 6)
+    assets['move'] = load_spritesheet(assets['sprite_move'], 1, 7)
+    assets['jump'] = load_spritesheet(assets['sprite_jump'], 1, 8)
+    assets['dano'] = load_spritesheet(assets['sprite_dano'], 1, 2)
+    assets['attack'] = load_spritesheet(assets['sprite_attack'], 1, 5)
+    assets['attack2'] = load_spritesheet(assets['sprite_attack2'], 1, 5)
+    assets['morte'] = load_spritesheet(assets['sprite_morte'], 1, 4)
+
+    state = {}
+    state['scroll'] = 0
+    return tela , assets , state
 
 def eventos():
     for event in pygame.event.get():
@@ -16,8 +35,15 @@ def eventos():
 
     return True
 
-def atualiza(tela):
-    tela.fill((0, 0, 0))
+def desenha(tela, assets, state):
+    tela.fill(PRETO)
+    bg_width = assets['fundo'].get_width()
+    tiles = math.ceil(1200/bg_width) + 1
+    for i in range(0, tiles):
+        tela.blit(assets['fundo'], (i*bg_width + state['scroll'], 0))
+    state['scroll'] -= 2
+    if abs(state['scroll']) > bg_width:
+        state['scroll'] = 0
     pygame.display.update()
 
 
@@ -46,11 +72,11 @@ def load_spritesheet(spritesheet, rows, columns):
 
 
 def game_loop():
-    tela = inicializa()
-
+    clock = pygame.time.Clock()
+    tela, assets , state = inicializa()
     while eventos():
-        atualiza(tela)
-
+        clock.tick(60)
+        desenha(tela, assets, state)
     pygame.quit()
 
 game_loop()
