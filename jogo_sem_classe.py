@@ -27,6 +27,7 @@ def inicializa():
 
     state = {}
     state['scroll'] = 0
+
     return tela , assets , state
 
 def eventos():
