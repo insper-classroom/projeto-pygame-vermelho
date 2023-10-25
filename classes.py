@@ -12,12 +12,13 @@ class Jogo:
 
     def eventos(self):
         mapa = Mapa()
-
+        jogador = Jogador(100, 100)
         while self.game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.game = False
             mapa.desenha(self.tela)
+            jogador.desenha(self.tela)
             pygame.display.update()
         return True
 jogo = Jogo()
