@@ -5,6 +5,13 @@ class Jogador(pygame.sprite.Sprite):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.velocidade_x = 0
+        self.velocidade_y = 0
+        self.estado = 'idle'
+        self.frame_atual = 0
+        self.contador_ticks = 0
+        self.delay_animacao = 5
+    
         self.assets = {}
         self.assets['jogador_idle'] = pygame.image.load('img/idle_personagem.jpg')
         self.assets['jogador_move'] = pygame.image.load('img/mov_personagem.jpg')
@@ -32,5 +39,33 @@ class Jogador(pygame.sprite.Sprite):
         return sprites
     
     def desenha(self, tela):
-        for i in range(len(self.assets['idle'])):
-            tela.blit(self.assets['idle'][i], (self.x, self.y))
+        if self.velocidade_x == 0 and self.velocidade_y == 0:
+            self.set_estado('idle')
+        elif self.velocidade_x > 0 and self.velocidade_y == 0:
+            self.set_estado('move')
+        elif self.velocidade_y < 0:
+            self.set_estado('jump')
+        tela.blit(self.assets[self.estado][self.frame_atual], (self.x, self.y))
+
+    def mover(self):
+        self.x += self.velocidade_x
+        self.y += self.velocidade_y
+
+    def set_estado(self, estado):
+        if self.estado != estado:
+            self.estado = estado
+            self.frame_atual = 0
+    
+    def set_velocidade_x(self, velocidade_x):
+        self.velocidade_x = velocidade_x
+
+    def set_velocidade_y(self, velocidade_y):
+        self.velocidade_y = velocidade_y
+
+    def atualizar_animacao(self):
+        self.contador_ticks += 1
+        if self.contador_ticks >= self.delay_animacao:
+            self.contador_ticks = 0
+            self.frame_atual += 1
+            if self.frame_atual >= len(self.assets[self.estado]):
+                self.frame_atual = 0
