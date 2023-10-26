@@ -19,20 +19,20 @@ class Jogo:
                 if event.type == pygame.QUIT:
                     self.game = False
                 if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        jogador.jump()
+                    if event.key == pygame.K_RIGHT:
+                        jogador.velocidade_x = 5
                     if event.key == pygame.K_LEFT:
-                        jogador.set_velocidade_x(-1)
-                    elif event.key == pygame.K_RIGHT:
-                        jogador.set_velocidade_x(1)
-                    elif event.key == pygame.K_UP:
-                        jogador.set_velocidade_y(-3)
-                    elif event.key == pygame.K_DOWN:
-                        jogador.set_velocidade_y(3)
+                        jogador.velocidade_x = - 5
                 if event.type == pygame.KEYUP:
-                    jogador.set_velocidade_x(0)
-                    jogador.set_velocidade_y(0)
+                    if event.key == pygame.K_RIGHT:
+                        jogador.velocidade_x -= 5
+                    if event.key == pygame.K_LEFT:
+                        jogador.velocidade_x += 5
 
                    
-            jogador.mover()
+            jogador.update()
             jogador.atualizar_animacao()
             mapa.desenha(self.tela)
             jogador.desenha(self.tela)
