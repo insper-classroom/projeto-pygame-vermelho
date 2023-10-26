@@ -2,6 +2,7 @@ import pygame
 from constantes import *
 from classe_jogador import *
 from classe_mapa import *
+from classe_tiled import *
 
 class Jogo:
     def __init__(self):
@@ -13,7 +14,10 @@ class Jogo:
 
     def eventos(self):
         mapa = Mapa()
-        jogador = Jogador(100, 100)
+        jogador = Jogador(50, 50)
+        mapatiled = TiledMap((0, 0), pygame.sprite.Group())
+        mapatiled.carregar_mapa('Tiled\mapa.tmx')
+
         while self.game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -31,14 +35,15 @@ class Jogo:
                     if event.key == pygame.K_LEFT:
                         jogador.velocidade_x += 5
 
-                   
+
             jogador.update()
-            jogador.atualizar_animacao()
             mapa.desenha(self.tela)
             jogador.desenha(self.tela)
+            mapatiled.desenhar_mapa(self.tela)
             self.relogio.tick(60)
             pygame.display.update()
         return True
+    
 jogo = Jogo()
 jogo.eventos()
-pygame.quit()       
+pygame.quit()
