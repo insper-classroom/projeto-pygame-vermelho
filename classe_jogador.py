@@ -3,15 +3,7 @@ from constantes import *
 
 class Jogador(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.velocidade_x = 0
-        self.velocidade_y = 0
-        self.estado = 'idle'
-        self.frame_atual = 0
-        self.contador_ticks = 0
-        self.delay_animacao = 5
-    
+        pygame.sprite.Sprite.__init__(self)
         self.assets = {}
         self.assets['jogador_idle'] = pygame.image.load('img/idle_personagem.jpg')
         self.assets['jogador_move'] = pygame.image.load('img/mov_personagem.jpg')
@@ -28,6 +20,17 @@ class Jogador(pygame.sprite.Sprite):
         self.assets['attack2'] = self.load_spritesheet(self.assets['jogador_attack2'], 1, 5)
         self.assets['morte'] = self.load_spritesheet(self.assets['jogador_morte'], 1, 4)
 
+        self.rect = self.assets['idle'][0].get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.velocidade_x = 0
+        self.velocidade_y = 0
+        self.estado = 'idle'
+        self.state = STILL
+        self.frame_atual = 0
+        self.contador_ticks = 0
+        self.delay_animacao = 5
+
     def load_spritesheet(self, sprite_sheet, rows, columns):
         sprite_width = sprite_sheet.get_width()//columns
         sprite_height = sprite_sheet.get_height()//rows
@@ -43,24 +46,39 @@ class Jogador(pygame.sprite.Sprite):
             self.set_estado('idle')
         elif self.velocidade_x > 0 and self.velocidade_y == 0:
             self.set_estado('move')
-        elif self.velocidade_y < 0:
-            self.set_estado('jump')
-        tela.blit(self.assets[self.estado][self.frame_atual], (self.x, self.y))
+        tela.blit(self.assets[self.estado][self.frame_atual], (self.rect.x, self.rect.y))
 
-    def mover(self):
-        self.x += self.velocidade_x
-        self.y += self.velocidade_y
+    # Método que faz o personagem pular
+    def jump(self):
+        # Só pode pular se ainda não estiver pulando ou caindo
+        if self.state == STILL:
+            print('pulou')
+            self.velocidade_y -= JUMP_SIZE
+            self.state = JUMPING
 
     def set_estado(self, estado):
         if self.estado != estado:
             self.estado = estado
             self.frame_atual = 0
     
-    def set_velocidade_x(self, velocidade_x):
-        self.velocidade_x = velocidade_x
-
-    def set_velocidade_y(self, velocidade_y):
-        self.velocidade_y = velocidade_y
+    # Metodo que atualiza a posição do personagem
+    def update(self):
+        self.velocidade_y += GRAVITY
+        # Atualiza o estado para caindo
+        if self.velocidade_y > 0:
+            self.state = FALLING
+        self.rect.y += self.velocidade_y
+        # Se bater no chão, para de cair
+        if self.rect.bottom > GROUND:
+            # Reposiciona para a posição do chão
+            self.rect.bottom = GROUND
+            # Para de cair
+            self.velocidade_y = 0
+            # Atualiza o estado para parado
+            self.state = STILL
+        
+        self.rect.x += self.velocidade_x
+        self.rect.y += self.velocidade_y
 
     def atualizar_animacao(self):
         self.contador_ticks += 1
