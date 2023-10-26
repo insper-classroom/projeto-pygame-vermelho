@@ -45,5 +45,5 @@ class TiledMap(pygame.sprite.Sprite):
         for layer in self.tmx_data.visible_layers:
             if hasattr(layer, 'tiles'):
                 for x, y, surf in layer.tiles():
-                    pos = (x * 12, y * 12)
+                    pos = (x * 16, y * 16)
                     tela.blit(surf, pos)
