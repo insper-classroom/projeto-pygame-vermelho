@@ -11,6 +11,7 @@ class Jogo:
         self.tela = pygame.display.set_mode((1200, 600), 0, 0)
         pygame.display.set_caption('Urban Brawl')
         self.relogio = pygame.time.Clock()
+        self.camera = pygame.Vector2(0, 0)
 
     def eventos(self):
         mapa = Mapa() # Cria o fundo
@@ -31,21 +32,28 @@ class Jogo:
                         jogador.moving_right = True
                     if event.key == pygame.K_LEFT or event.key == pygame.K_a: # Movimentação
                         jogador.moving_left = True
+                    if event.key == pygame.K_LSHIFT:
+                        jogador.atacar()
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
                         jogador.moving_right = False
                     if event.key == pygame.K_LEFT or event.key == pygame.K_a: # Movimentação
                         jogador.moving_left = False
-
+                
+            if jogador.rect.y > 600:
+                self.game = False
 
             '''
             Atualizações
             '''
+            self.camera.x = jogador.rect.x 
+            self.camera.y = 300
+
             mapa.desenha(self.tela) # Desenha o fundo
-            mapatiled.desenhar_mapa(self.tela) # Desenha o mapa
+            mapatiled.desenhar_mapa(self.tela, self.camera) # Desenha o mapa
             jogador.desenha(self.tela) # Desenha o personagem
-            jogador.update(mapatiled.desenhar_mapa(self.tela)) # Atualiza a posição do personagem
+            jogador.update(mapatiled.desenhar_mapa(self.tela,self.camera)) # Atualiza a posição do personagem
             self.relogio.tick(60)
             pygame.display.update()
 
