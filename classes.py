@@ -25,23 +25,26 @@ class Jogo:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         jogador.jump()
-                    if event.key == pygame.K_RIGHT:
-                        jogador.velocidade_x = 5
-                    if event.key == pygame.K_LEFT:
-                        jogador.velocidade_x = - 5
+                    if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                        jogador.moving_right = True
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                        jogador.moving_left = True
+
                 if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_RIGHT:
-                        jogador.velocidade_x -= 5
-                    if event.key == pygame.K_LEFT:
-                        jogador.velocidade_x += 5
+                    if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                        jogador.moving_right = False
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                        jogador.moving_left = False
 
 
-            jogador.update()
+
             mapa.desenha(self.tela)
-            jogador.desenha(self.tela)
             mapatiled.desenhar_mapa(self.tela)
+            jogador.desenha(self.tela)
+            jogador.update(mapatiled.desenhar_mapa(self.tela))
             self.relogio.tick(60)
             pygame.display.update()
+
         return True
     
 jogo = Jogo()
