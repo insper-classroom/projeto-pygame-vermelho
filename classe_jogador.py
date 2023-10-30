@@ -25,23 +25,35 @@ class Jogador(pygame.sprite.Sprite):
         self.moving_left = False
     
     def desenha(self, tela):
+        '''
+        Desenha o personagem na tela
+        '''
         #Desenha o personagem
         pygame.draw.rect(tela, (255, 0, 0), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 1)
         tela.blit(self.assets[self.estado], (self.rect.x, self.rect.y))
 
     def jump(self):
+        '''
+        Pulo do personagem
+        '''
         # Só pode pular se ainda não estiver pulando ou caindo
         if self.state == STILL:
             self.velocidade_y -= 10
             self.state = JUMPING
 
     def set_estado(self, estado):
+        '''
+        Muda o estado do personagem
+        '''
         # Só altera o estado se for diferente do atual
         if self.estado != estado:
             self.estado = estado
     
     # Metodo que atualiza a posição do personagem
     def update(self, tiles):
+        '''
+        Atualiza a posição do personagem e Gravidade
+        '''
         # Gravidade
         self.velocidade_y += 0.5
 
@@ -65,6 +77,9 @@ class Jogador(pygame.sprite.Sprite):
         # Atualiza a posição y do personagem
         self.rect.y += self.velocidade_y
 
+        '''
+        Colisão com o mapa
+        '''
         for tile in tiles: # Colisão vertical
             if self.rect.colliderect(tile):
                 if self.velocidade_y > 0: # Colisão do chão
