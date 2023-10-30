@@ -13,35 +13,39 @@ class Jogo:
         self.relogio = pygame.time.Clock()
 
     def eventos(self):
-        mapa = Mapa()
-        jogador = Jogador(50, 50)
-        mapatiled = TiledMap((0, 0), pygame.sprite.Group())
-        mapatiled.carregar_mapa('Tiled\mapa.tmx')
-
-        while self.game:
+        mapa = Mapa() # Cria o fundo
+        jogador = Jogador(50, 50) # Cria o personagem
+        mapatiled = TiledMap((0, 0), pygame.sprite.Group()) # Cria o mapa
+        mapatiled.carregar_mapa('Tiled\mapa.tmx') # Carrega o mapa
+        '''
+        Game Loop
+        '''
+        while self.game: # Loop principal
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.game = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
+                    if event.key == pygame.K_SPACE: # Pulo
                         jogador.jump()
-                    if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                    if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
                         jogador.moving_right = True
-                    if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_a: # Movimentação
                         jogador.moving_left = True
 
                 if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                    if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
                         jogador.moving_right = False
-                    if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_a: # Movimentação
                         jogador.moving_left = False
 
 
-
-            mapa.desenha(self.tela)
-            mapatiled.desenhar_mapa(self.tela)
-            jogador.desenha(self.tela)
-            jogador.update(mapatiled.desenhar_mapa(self.tela))
+            '''
+            Atualizações
+            '''
+            mapa.desenha(self.tela) # Desenha o fundo
+            mapatiled.desenhar_mapa(self.tela) # Desenha o mapa
+            jogador.desenha(self.tela) # Desenha o personagem
+            jogador.update(mapatiled.desenhar_mapa(self.tela)) # Atualiza a posição do personagem
             self.relogio.tick(60)
             pygame.display.update()
 

@@ -1,3 +1,6 @@
+'''
+    Arquivo com as constantes do jogo
+'''
 BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)
 VERDE = (0, 255, 0)

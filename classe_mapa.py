@@ -10,11 +10,11 @@ class Mapa:
         self.state = {}
         self.state['scroll'] = 0
     
-    def desenha(self, tela):
+    def desenha(self, tela): # Desenha o fundo
         bg_width = self.assets['fundo'].get_width()
         tiles = math.ceil(1200/bg_width) + 1
-        for i in range(0, tiles):
-            tela.blit(self.assets['fundo'], (i*bg_width + self.state['scroll'], 0))
+        for i in range(0, tiles): 
+            tela.blit(self.assets['fundo'], (i*bg_width + self.state['scroll'], 0)) # Desenha o fundo com o scroll
         self.state['scroll'] -= 1
         if abs(self.state['scroll']) > bg_width:
             self.state['scroll'] = 0
@@ -22,7 +22,7 @@ class Mapa:
         bg_width_agua = self.assets['fundo_agua'].get_width()
         tiles_agua = math.ceil(1200/bg_width_agua) + 1
         for i in range(0, tiles_agua):
-            tela.blit(self.assets['fundo_agua'], (i*bg_width_agua + self.state['scroll'], 414))
+            tela.blit(self.assets['fundo_agua'], (i*bg_width_agua + self.state['scroll'], 414)) # Desenha o fundo agua com o scroll
         self.state['scroll'] -= 1
         if abs(self.state['scroll']) > bg_width_agua:
             self.state['scroll'] = 0
