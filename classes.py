@@ -9,7 +9,7 @@ class Jogo:
         pygame.init()
         self.game = True
         self.tela = pygame.display.set_mode((1200, 600), 0, 0)
-        pygame.display.set_caption('Jogo')
+        pygame.display.set_caption('Urban Brawl')
         self.relogio = pygame.time.Clock()
 
     def eventos(self):
