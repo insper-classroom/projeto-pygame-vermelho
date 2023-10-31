@@ -19,6 +19,7 @@ class Jogador(pygame.sprite.Sprite):
         self.assets['jogador_ataque'] = pygame.transform.scale_by(self.assets['jogador_ataque'],1)
         self.assets['jogador_ataque_pre'] = pygame.transform.scale_by(self.assets['jogador_ataque_pre'],1)
         self.assets['jogador_ataque_pos'] = pygame.transform.scale_by(self.assets['jogador_ataque_pos'],1)
+        self.mask = pygame.mask.from_surface(self.assets['jogador_ataque'])
 
         self.rect = self.assets['jogador_idle'].get_rect()
         self.rect.x = x
@@ -29,14 +30,18 @@ class Jogador(pygame.sprite.Sprite):
         self.state = STILL
         self.moving_right = False
         self.moving_left = False
+        self.flip = False
     
     def desenha(self, tela):
         '''
         Desenha o personagem na tela
         '''
+        jogador_imagem = self.assets[self.estado].copy()
         #Desenha o personagem
-        pygame.draw.rect(tela, (255, 0, 0), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 1)
-        tela.blit(self.assets[self.estado], (self.rect.x, self.rect.y))
+        if self.flip:
+            jogador_imagem = pygame.transform.flip(jogador_imagem, True, False)
+        
+        tela.blit(jogador_imagem, (self.rect.x, self.rect.y))
 
     def jump(self):
         '''
@@ -62,7 +67,6 @@ class Jogador(pygame.sprite.Sprite):
         if self.estado == 'jogador_idle' or self.estado == 'jogador_move':
             self.set_estado('jogador_ataque')
 
-        
     # Metodo que atualiza a posição do personagem
     def update(self, tiles):
         '''
