@@ -37,6 +37,8 @@ class Inimigo(pygame.sprite.Sprite):
         self.direcao = 1  # 1 para direita, -1 para esquerda
         self.flip = False
         self.pos = 0
+        self.vida = 5
+
 
     def update(self):
         '''

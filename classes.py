@@ -25,7 +25,7 @@ class Jogo:
 
     def eventos(self):
         mapa = Mapa() # Cria o fundo
-        jogador = Jogador(8, 320) # Cria o personagem
+        jogador = Jogador(8, 320, self.grupo_inimigos) # Cria o personagem
         mapatiled = TiledMap((0, 0), pygame.sprite.Group()) # Cria o mapa
         mapatiled.carregar_mapa('Tiled\mapa.tmx') # Carrega o mapa
 
@@ -37,21 +37,21 @@ class Jogo:
                 if event.type == pygame.QUIT:
                     self.game = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE: # Pulo
+                    if event.key == pygame.K_UP: # Pulo
                         jogador.jump()
-                    if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
+                    if event.key == pygame.K_RIGHT: # Movimentação
                         jogador.moving_right = True
                         jogador.flip = False
-                    if event.key == pygame.K_LEFT or event.key == pygame.K_a: # Movimentação
+                    if event.key == pygame.K_LEFT: # Movimentação
                         jogador.moving_left = True
                         jogador.flip = True
-                    if event.key == pygame.K_LSHIFT:
+                    if event.key == pygame.K_SPACE:
                         jogador.atacar()
 
                 if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
+                    if event.key == pygame.K_RIGHT: # Movimentação
                         jogador.moving_right = False
-                    if event.key == pygame.K_LEFT or event.key == pygame.K_a: # Movimentação
+                    if event.key == pygame.K_LEFT: # Movimentação
                         jogador.moving_left = False
                 
             if jogador.rect.y > 600:
@@ -72,8 +72,18 @@ class Jogo:
             for inimigo in self.grupo_inimigos:
                 inimigo.desenha(self.tela, self.camera)
                 if ((inimigo.pos[0] - jogador.rect.x)**2 + (inimigo.pos[1] - jogador.rect.y)**2)**0.5 < 16:
-                    print('colidiu')
+                    if jogador.timer <= 0:
+                        jogador.vida -= 1
+                        jogador.timer = 180
             self.relogio.tick(60)
+
+            if jogador.timer > 0:
+                self.tela.blit(pygame.font.SysFont('arial', 30).render(f'Invencibilidade: {jogador.contador}', True, (255, 255, 255)), (0, 0))
+                jogador.timer -= 1
+                jogador.contador = jogador.timer // 60
+            if jogador.vida <= 0:
+                self.game = False
+            
             pygame.display.update()
 
         return True
