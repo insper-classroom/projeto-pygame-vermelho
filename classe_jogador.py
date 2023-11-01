@@ -9,16 +9,10 @@ class Jogador(pygame.sprite.Sprite):
         self.assets['jogador_move'] = pygame.image.load('img/personagem-pricipal-andando.png')
         self.assets['jogador_jump'] = pygame.image.load('img/personagem-principal-pulando.png')
         self.assets['jogador_morte'] = pygame.image.load('img/personagem-principal-morto.png')
-        self.assets['jogador_ataque'] = pygame.image.load('img/personagem-principal-atacando.png')
-        self.assets['jogador_ataque_pre'] = pygame.image.load('img/personagem-principal-pre-ataque.png')
-        self.assets['jogador_ataque_pos'] = pygame.image.load('img/personagem-principal-pos-ataque.png')
         self.assets['jogador_idle'] = pygame.transform.scale_by(self.assets['jogador_idle'],1)
         self.assets['jogador_move'] = pygame.transform.scale_by(self.assets['jogador_move'],1)
         self.assets['jogador_jump'] = pygame.transform.scale_by(self.assets['jogador_jump'],1)
         self.assets['jogador_morte'] = pygame.transform.scale_by(self.assets['jogador_morte'],1)
-        self.assets['jogador_ataque'] = pygame.transform.scale_by(self.assets['jogador_ataque'],1)
-        self.assets['jogador_ataque_pre'] = pygame.transform.scale_by(self.assets['jogador_ataque_pre'],1)
-        self.assets['jogador_ataque_pos'] = pygame.transform.scale_by(self.assets['jogador_ataque_pos'],1)
 
         self.rect = self.assets['jogador_idle'].get_rect()
         self.rect.x = x
@@ -64,20 +58,7 @@ class Jogador(pygame.sprite.Sprite):
         # Só altera o estado se for diferente do atual
         if self.estado != estado:
             self.estado = estado
-    
 
-    def atacar(self):
-        '''
-        Ataque do personagem
-        '''
-        if self.estado == 'jogador_idle' or self.estado == 'jogador_move':
-            self.set_estado('jogador_ataque')
-
-            for inimigo in self.grupo_inimigos:
-                if self.rect.colliderect(inimigo):
-                    # Ataque acertou um inimigo, o inimigo perde uma vida
-                    inimigo.vidas -= 1
-                    print(f'O inimigo agora tem {inimigo.vidas} vidas.')
 
     # Metodo que atualiza a posição do personagem
     def update(self, tiles):

@@ -45,8 +45,6 @@ class Jogo:
                     if event.key == pygame.K_LEFT: # Movimentação
                         jogador.moving_left = True
                         jogador.flip = True
-                    if event.key == pygame.K_SPACE:
-                        jogador.atacar()
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_RIGHT: # Movimentação
