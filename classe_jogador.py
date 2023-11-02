@@ -41,6 +41,7 @@ class Jogador(pygame.sprite.Sprite):
             return
         
         tela.blit(jogador_imagem, (self.rect.x, self.rect.y))
+        tela.blit(pygame.font.SysFont('arial', 30).render('Vidas: ' + str(self.vida), True, (255, 255, 255)), (0, 0))
 
     def jump(self):
         '''
@@ -73,11 +74,11 @@ class Jogador(pygame.sprite.Sprite):
             self.set_estado('jogador_jump')
             self.state = JUMPING  
         elif self.moving_right:
-            self.velocidade_x = 2
+            self.velocidade_x = 1.8
             self.set_estado('jogador_move')
             self.state = STILL
         elif self.moving_left:
-            self.velocidade_x = -2
+            self.velocidade_x = -1.8
             self.set_estado('jogador_move')
             self.state = STILL
         else:
