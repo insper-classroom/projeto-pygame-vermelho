@@ -13,6 +13,8 @@ class Jogo:
         self.game = True
         self.tela = pygame.display.set_mode((1200, 600), 0, 0)
         pygame.display.set_caption('Urban Brawl')
+        self.boneco_morto = pygame.image.load('img/personagem-principal-morto.png')
+        self.boneco_morto = pygame.transform.scale(self.boneco_morto, (300, 200))
         self.relogio = pygame.time.Clock()
         self.camera = pygame.Vector2(0, 0)
 
@@ -90,7 +92,7 @@ class Jogo:
                 self.camera.y = 300
                 self.grupo_inimigos.update()
 
-                mapa.desenha(self.tela) # Desenha o fundo
+                mapa.desenha(self.tela, self.camera ) # Desenha o fundo
                 mapatiled.desenhar_mapa(self.tela, self.camera) # Desenha o mapaa
                 jogador.desenha(self.tela) # Desenha o personagem
                 jogador.update(mapatiled.desenhar_mapa(self.tela,self.camera)) # Atualiza a posição do personagem
@@ -126,6 +128,8 @@ class Jogo:
                         self.morte.play()
                         self.mortee = True
                     telagameover.desenha(self.tela)
+                    self.tela.blit(self.boneco_morto, (50,400))
+                    jogador.morto = True
                 
                 self.relogio.tick(60)
                 
