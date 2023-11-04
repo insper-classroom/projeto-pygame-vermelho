@@ -3,6 +3,9 @@ from constantes import *
 
 class Jogador(pygame.sprite.Sprite):
     def __init__(self, x, y, grupo_inimigos):
+        '''
+        Inicializa o personagem
+        '''
         pygame.sprite.Sprite.__init__(self)
         self.assets = {}
         self.assets['jogador_idle'] = pygame.image.load('img/personagem-principal-parado.png')

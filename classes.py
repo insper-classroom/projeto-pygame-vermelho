@@ -9,6 +9,9 @@ from classe_telagameover import *
 
 class Jogo:
     def __init__(self):
+        '''
+        Inicializa o jogo
+        '''
         pygame.init()
         self.game = True
         self.tela = pygame.display.set_mode((1200, 600), 0, 0)
@@ -40,7 +43,13 @@ class Jogo:
         self.inimigos_mortos = 0
         pygame.mixer.music.play()
 
+        self.grupo_inimigos_tutorial = pygame.sprite.Group()
+        inimigo_tutorial = Inimigo(1000, 607, 'inimigo2')
+        self.grupo_inimigos_tutorial.add(inimigo_tutorial)
+        self.inimigos_mortos_tutorial = 0
+
     def eventos(self):
+        tutorial = False
         tela = True
         mapa = Mapa() # Cria o fundo
         jogador = Jogador(8, 320, self.grupo_inimigos) # Cria o personagem
@@ -52,7 +61,72 @@ class Jogo:
         Game Loop
         '''
         while self.game: # Loop principal
-            if tela:
+            if tutorial: # Tela do tutorial
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.game = False
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            tutorial = False
+                        if event.key == pygame.K_SPACE or event.key == pygame.K_UP: # Pulo
+                            jogador.jump()
+                        if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
+                            jogador.moving_right = True
+                            jogador.flip = False
+                        if event.key == pygame.K_LEFT or event.key == pygame.K_a: # Movimentação
+                            jogador.moving_left = True
+                            jogador.flip = True
+
+                    if event.type == pygame.KEYUP:
+                        if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
+                            jogador.moving_right = False
+                        if event.key == pygame.K_LEFT or event.key == pygame.K_a: # Movimentação
+                            jogador.moving_left = False
+                
+
+                if jogador.rect.y > 600:
+                    self.game = False
+
+                '''
+                Atualizações
+                '''
+                self.camera.x = jogador.rect.x
+                self.camera.y = 300
+                self.grupo_inimigos.update()
+
+                mapatiled.desenhar_tutorial(self.tela, self.camera)
+                self.tela.fill((0, 0, 0))
+                self.tela.blit(pygame.font.SysFont('arial', 30).render('Para pular o tutorial aperte Esc', True, (255, 255, 255)), (0, 30))
+                self.tela.blit(pygame.font.SysFont('arial', 30).render('Como jogar: teclas A e D ou as setinhas para mover o personagem', True, (255, 255, 255)), (0, 60))
+                self.tela.blit(pygame.font.SysFont('arial', 30).render('Seta para cima ou espaço para pular', True, (255, 255, 255)), (0, 90))
+                self.tela.blit(pygame.font.SysFont('arial', 30).render('Para eliminar um inimigo pule na cabeça dele', True, (255, 255, 255)), (0, 120))
+                jogador.desenha(self.tela)
+                jogador.update(mapatiled.desenhar_tutorial(self.tela,self.camera))
+
+                for inimigo in self.grupo_inimigos_tutorial:
+                    if inimigo.vida <= 0:
+                        self.inimigos_mortos_tutorial += 1
+                        self.grupo_inimigos_tutorial.remove(inimigo)
+                    if inimigo.vida > 0:
+                        inimigo.desenha(self.tela, self.camera)
+                        if ((inimigo.pos[0] - jogador.rect.x)**2 + (inimigo.pos[1] - jogador.rect.y)**2)**0.5 < 16:
+                            if jogador.timer <= 0:
+                                if jogador.velocidade_y > 0 and jogador.rect.bottom <= inimigo.rect.top:
+                                    inimigo.vida -= 1
+                                    jogador.velocidade_y = -10
+            
+                if self.inimigos_mortos_tutorial == 1:
+                    tutorial = False
+                    jogador.rect.x = 8
+                    jogador.rect.y = 320
+                    jogador.vida = 3
+                    jogador.timer = 0
+                    jogador.contador = 0
+                    jogador.morto = False
+                    pygame.mixer.music.play()
+
+            elif tela:
+                # Tela inicial
                 telainicial = Telainicial()
                 telainicial.desenha(self.tela)
                 for event in pygame.event.get():
@@ -62,7 +136,9 @@ class Jogo:
                         if event.key == pygame.K_SPACE:
                             self.comeco.play()
                             tela = False
+                            tutorial = True
             else:
+                # Tela do jogo principal
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         self.game = False
@@ -125,6 +201,7 @@ class Jogo:
                 
                 if jogador.vida <= 0:
                     if self.mortee == False:
+                        pygame.mixer.music.stop()
                         self.morte.play()
                         self.mortee = True
                     telagameover.desenha(self.tela)

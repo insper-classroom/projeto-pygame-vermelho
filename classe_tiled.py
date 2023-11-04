@@ -32,3 +32,16 @@ class TiledMap(pygame.sprite.Sprite):
                         surf = pygame.transform.scale(surf, (16, 16))
                         tela.blit(surf, pos)
         return tiles
+    
+    def desenhar_tutorial(self, tela, camera): # desenha os tiles na tela
+        tiles = [] # lista de tiles
+        for layer in self.tmx_data.visible_layers:
+            if layer.name in 'Tutorial':
+                if hasattr(layer, 'tiles'):
+                    for x, y, surf in layer.tiles():
+                        pos = (x * 16 - camera.x, y * 16 - camera.y)
+                        surf = pygame.transform.scale(surf, (16, 16))
+                        tela.blit(surf, pos)
+                        #adicionar o tile a lista de tiles
+                        tiles.append(pygame.Rect(pos[0], pos[1], 16, 16))
+        return tiles
