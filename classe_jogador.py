@@ -28,6 +28,7 @@ class Jogador(pygame.sprite.Sprite):
         self.timer = 0
         self.contador = 0
         self.grupo_inimigos = grupo_inimigos
+        self.move_tempo = 0
     
     def desenha(self, tela):
         '''
@@ -75,11 +76,21 @@ class Jogador(pygame.sprite.Sprite):
             self.state = JUMPING  
         elif self.moving_right:
             self.velocidade_x = 1.8
-            self.set_estado('jogador_move')
+            self.move_tempo += 1
+            if self.move_tempo == 20:
+                self.move_tempo = 0
+                self.set_estado('jogador_idle')
+            else:
+                self.set_estado('jogador_move')
             self.state = STILL
         elif self.moving_left:
             self.velocidade_x = -1.8
-            self.set_estado('jogador_move')
+            self.move_tempo += 1
+            if self.move_tempo == 20:
+                self.set_estado('jogador_idle')
+                self.move_tempo = 0
+            else:
+                self.set_estado('jogador_move')
             self.state = STILL
         else:
             self.velocidade_x = 0
