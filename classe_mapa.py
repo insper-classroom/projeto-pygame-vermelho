@@ -4,12 +4,18 @@ from constantes import *
 
 class Mapa:
     def __init__(self):
+        '''
+        Inicializa o Background
+        '''
         self.assets = {}
         self.assets['fundo'] = pygame.image.load('img/Backgroud.jpg')
         self.assets['fundo_agua'] = pygame.image.load('img/Background_agua.png')
         self.state = {}
     
     def desenha(self, tela, camera): # Desenha o fundo
+        '''
+        Desenha o Background
+        '''
         bg_width = self.assets['fundo'].get_width()
         tiles = math.ceil(1200/bg_width) + 1
         for i in range(0, tiles): 
