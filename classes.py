@@ -36,10 +36,16 @@ class Jogo:
         inimigo2 = Inimigo(100, 543, 'inimigo2')
         inimigo3 = Inimigo(1100, 415, 'inimigo3')
         inimigo4 = Inimigo(1590, 447, 'inimigo4')
+        inimigo5 = Inimigo(1550, 622, 'inimigo1')
+        inimigo7 = Inimigo(1080, 590, 'inimigo2')
+        inimigo6 = Inimigo(500, 670, 'inimigo3')
         self.grupo_inimigos.add(inimigo1)
         self.grupo_inimigos.add(inimigo2)
         self.grupo_inimigos.add(inimigo3)
         self.grupo_inimigos.add(inimigo4)
+        self.grupo_inimigos.add(inimigo5)
+        self.grupo_inimigos.add(inimigo6)
+        self.grupo_inimigos.add(inimigo7)
         self.inimigos_mortos = 0
         pygame.mixer.music.play()
 
@@ -177,7 +183,7 @@ class Jogo:
                     if inimigo.vida <= 0:
                         self.inimigos_mortos += 1
                         self.grupo_inimigos.remove(inimigo)
-                    if self.inimigos_mortos == 4:
+                    if self.inimigos_mortos == 7:
                         chefe = Inimigo(170, 670, 'chefe')
                         inimigo.chefe = True
                         self.inimigos_mortos = 0
