@@ -43,7 +43,7 @@ class Jogador(pygame.sprite.Sprite):
             jogador_imagem = pygame.transform.flip(jogador_imagem, True, False)
         if self.timer > 0 and self.timer % 30 < 15:
             return
-        
+
         tela.blit(jogador_imagem, (self.rect.x, self.rect.y))
         tela.blit(pygame.font.SysFont('arial', 30).render('Vidas: ' + str(self.vida), True, (255, 255, 255)), (0, 0))
 
@@ -76,7 +76,8 @@ class Jogador(pygame.sprite.Sprite):
         # Atualiza a animação do personagem e movimentação
         if self.velocidade_y < 0.5 or self.velocidade_y > 0.5:
             self.set_estado('jogador_jump')
-            self.state = JUMPING  
+            self.state = JUMPING 
+
         elif self.moving_right:
             self.velocidade_x = 1.8
             self.move_tempo += 1
@@ -86,6 +87,7 @@ class Jogador(pygame.sprite.Sprite):
             else:
                 self.set_estado('jogador_move')
             self.state = STILL
+
         elif self.moving_left:
             self.velocidade_x = -1.8
             self.move_tempo += 1

@@ -68,14 +68,14 @@ class Jogo:
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_ESCAPE:
                             tutorial = False
-                        if event.key == pygame.K_SPACE or event.key == pygame.K_UP: # Pulo
-                            jogador.jump()
                         if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
                             jogador.moving_right = True
                             jogador.flip = False
                         if event.key == pygame.K_LEFT or event.key == pygame.K_a: # Movimentação
                             jogador.moving_left = True
                             jogador.flip = True
+                        if event.key == pygame.K_SPACE or event.key == pygame.K_UP: # Pulo
+                            jogador.jump()
 
                     if event.type == pygame.KEYUP:
                         if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
