@@ -86,8 +86,16 @@ header {
     -4px 4px 0 #C12855
 }
 
-/*1*/
 
+.center-title {
+    text-align: center;
+    margin-top: 5%;
+}
+
+.texto-explicando-historia {
+    width: 883px ;
+    margin-left: 3%;
+}
 
 
 .container-historia {
@@ -131,7 +139,30 @@ header {
 }
 
 
-/*2*/
+.linha-um-imagens {
+    margin-top: 10%;
+    display: flex; 
+    margin-left: 5%;
+}
+
+.logo-3 {
+    margin-left: 10%;
+}
+
+
+.linha-dois-imagens {
+     display: flex;
+     margin-top: 10%;
+     margin-right: -10%;
+} 
+
+.personagem-loiro {
+    margin-top: 3%;
+    margin-right: 12%;
+    margin-left: 12%;
+    width: 15%;
+    height: 15%;
+}
 
 .linha-tres-imagens {
 
@@ -187,7 +218,31 @@ header {
 
 /* ------------------------------------------------------------------------------- */
 
-/*3*/
+
+.fotos-produtores {
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.nome-produtores {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+
+    text-shadow: 
+    4px 4px 0 #C12855, 
+    -4px -4px 0 #C12855, 
+    4px -4px 0 #C12855, 
+    -4px 4px 0 #C12855;
+
+    display: flex;
+    justify-content: space-around;
+}
 
 .descricao-produtores {
     color: #FFF;
@@ -232,7 +287,23 @@ header {
     border: 10px solid #C12855;
 }
 
-/*4*/
+#commits {
+
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+    margin-left: 5%;
+
+    text-shadow: 
+    1.5px 1.5px 0 #C12855, 
+    -1.5px -1.5px 0 #C12855, 
+    1.5px -1.5px 0 #C12855, 
+    -1.5px 1.5px 0 #C12855;
+}
 
 .botao-download {
     margin-top: 5%;
