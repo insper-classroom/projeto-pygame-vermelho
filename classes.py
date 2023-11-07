@@ -8,6 +8,7 @@ from classe_telainicial import *
 from classe_telagameover import *
 from classe_cura import *
 from classe_telawin import *
+from classe_seta import *
 
 class Jogo:
     def __init__(self):
@@ -23,11 +24,16 @@ class Jogo:
         self.game = True
         self.tela = pygame.display.set_mode((1200, 600), 0, 0)
         pygame.display.set_caption('Urban Brawl')
+        self.seta_image = pygame.image.load('img/arrows-png.webp')
+        self.seta_imagem = pygame.transform.scale(self.seta_image, (64, 64))
         self.boneco_morto = pygame.image.load('img/personagem-principal-morto.png')
         self.boneco_morto = pygame.transform.scale(self.boneco_morto, (300, 200))
         self.relogio = pygame.time.Clock()
         self.camera = pygame.Vector2(0, 0)
         self.t0 = 0
+        self.tempo_mensagem = 0
+        self.exibir_mensagem = False
+        self.mensagem_ativada = False
 
         #Músicas e sons
         pygame.mixer.music.load('Sons/Where Is My Mind 8 Bit.mp3')
@@ -108,6 +114,8 @@ class Jogo:
         self.curar = pygame.mixer.Sound('Sons/heal.mp3')
         self.curar.set_volume(0.5)
         self.mortee = False
+        self.tempo_mensagem = 0
+        self.exibir_mensagem = False
 
         '''
         Inicializa o grupo de inimigos
@@ -152,7 +160,10 @@ class Jogo:
         tutorial = False
         tela = True
         ganhar = False
+        seta = False
         self.ja_passado = 0
+        setaa = Setas(1850, 380)
+        setaa2 = Setas(1650, 575)
         mapa = Mapa() # Cria o fundo
         jogador = Jogador(8, 320, self.grupo_inimigos) # Cria o personagem
         mapatiled = TiledMap((0, 0), pygame.sprite.Group()) # Cria o mapa
@@ -243,7 +254,6 @@ class Jogo:
                 jogador.update(mapatiled.desenhar_tutorial(self.tela,self.camera))
 
                 for cura in self.grupo_cura_tutorial:
-                    cura.rotacao()
                     cura.desenha(self.tela, self.camera)
                     if ((cura.pos[0] - jogador.rect.x)**2 + (cura.pos[1] - jogador.rect.y)**2)**0.5 < 32 and jogador.vida < 5:
                         jogador.vida += 1
@@ -272,7 +282,7 @@ class Jogo:
                     jogador.contador = 0
                     jogador.morto = False
                     self.t0 = pygame.time.get_ticks()
-                    pygame.mixer.music.play()
+                    pygame.mixer.music.play(-1)
 
             elif tela:
                 # Tela inicial
@@ -371,7 +381,6 @@ class Jogo:
                 self.tela.blit(pygame.font.SysFont('arial', 30).render(f'Tempo: {self.timer}', True, (255, 255, 255)), (1000, 0))
                 
                 for cura in self.grupo_cura:
-                    cura.rotacao()
                     cura.desenha(self.tela, self.camera)
                     if ((cura.pos[0] - jogador.rect.x)**2 + (cura.pos[1] - jogador.rect.y)**2)**0.5 < 32 and jogador.vida < 5:
                         jogador.vida += 1
@@ -384,6 +393,7 @@ class Jogo:
                         self.morte_inimigo.play()
                         self.grupo_inimigos.remove(inimigo)
                     if self.inimigos_mortos == 7:
+                        seta = True
                         chefe = Inimigo(170, 670, 'chefe')
                         inimigo.chefe = True
                         self.inimigos_mortos = 8
@@ -403,6 +413,18 @@ class Jogo:
 
                 if self.inimigos_mortos == 9:
                     ganhar = True
+
+                if seta and not self.mensagem_ativada:
+                    self.exibir_mensagem = True
+                    self.mensagem_ativada = True
+                    self.tempo_mensagem = pygame.time.get_ticks()
+
+                if self.exibir_mensagem:
+                    if pygame.time.get_ticks() - self.tempo_mensagem > 3000:
+                        self.exibir_mensagem = False
+                    else:
+                        mensagem = "A seta apareceu! Siga-a para encontrar o chefe!"
+                        self.tela.blit(pygame.font.SysFont('arial', 30).render(mensagem, True, (255, 255, 255)), (0, 550))
 
                 if jogador.timer > 0:
                     self.tela.blit(pygame.font.SysFont('arial', 30).render(f'Invencibilidade: {jogador.contador}', True, (255, 255, 255)), (0, 30))
