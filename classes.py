@@ -31,13 +31,82 @@ class Jogo:
 
         #Músicas e sons
         pygame.mixer.music.load('Sons/Where Is My Mind 8 Bit.mp3')
-        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.set_volume(0.5)
         self.comeco = pygame.mixer.Sound('Sons/game-start-6104.mp3')
         self.morte = pygame.mixer.Sound('Sons/game-over-arcade-6435.mp3')
         self.morte_inimigo = pygame.mixer.Sound('Sons/morte 8bit.mp3')
+        self.morte_inimigo.set_volume(1.5)
         self.pulo = pygame.mixer.Sound('Sons/8bit-jump.mp3')
+        self.pulo.set_volume(0.2)
         self.dano = pygame.mixer.Sound('Sons/minecraft-damage_OTtnom6.mp3')
         self.curar = pygame.mixer.Sound('Sons/heal.mp3')
+        self.curar.set_volume(0.5)
+        self.mortee = False
+
+        '''
+        Inicializa o grupo de inimigos
+        '''
+        self.grupo_inimigos = pygame.sprite.Group()
+        inimigo1 = Inimigo(700, 367, 'inimigo1')
+        inimigo2 = Inimigo(100, 543, 'inimigo2')
+        inimigo3 = Inimigo(1100, 415, 'inimigo3')
+        inimigo4 = Inimigo(1590, 447, 'inimigo4')
+        inimigo5 = Inimigo(1550, 622, 'inimigo1')
+        inimigo7 = Inimigo(1080, 590, 'inimigo2')
+        inimigo6 = Inimigo(500, 670, 'inimigo3')
+        self.grupo_inimigos.add(inimigo1)
+        self.grupo_inimigos.add(inimigo2)
+        self.grupo_inimigos.add(inimigo3)
+        self.grupo_inimigos.add(inimigo4)
+        self.grupo_inimigos.add(inimigo5)
+        self.grupo_inimigos.add(inimigo6)
+        self.grupo_inimigos.add(inimigo7)
+        self.inimigos_mortos = 0
+
+        self.grupo_inimigos_tutorial = pygame.sprite.Group()
+        self.grupo_cura_tutorial = pygame.sprite.Group()
+        inimigo_tutorial = Inimigo(1000, 607, 'inimigo2')
+        cura_tutorial = Cura(800, 670)
+        self.grupo_cura_tutorial.add(cura_tutorial)
+        self.grupo_inimigos_tutorial.add(inimigo_tutorial)
+        self.inimigos_mortos_tutorial = 0
+
+        '''
+        Inicializa o grupo de curas
+        '''
+        self.grupo_cura = pygame.sprite.Group()
+        cura1 = Cura(1100, 370)
+        cura2 = Cura(500, 443)
+        cura3 = Cura(1400, 560)
+        self.grupo_cura.add(cura1)
+        self.grupo_cura.add(cura2)
+        self.grupo_cura.add(cura3)
+    
+    def reiniciar(self):
+        '''
+        Reinicia o jogo
+        '''
+        self.game = True
+        self.tela = pygame.display.set_mode((1200, 600), 0, 0)
+        pygame.display.set_caption('Urban Brawl')
+        self.boneco_morto = pygame.image.load('img/personagem-principal-morto.png')
+        self.boneco_morto = pygame.transform.scale(self.boneco_morto, (300, 200))
+        self.relogio = pygame.time.Clock()
+        self.camera = pygame.Vector2(0, 0)
+        self.t0 = 0
+
+        #Músicas e sons
+        pygame.mixer.music.load('Sons/Where Is My Mind 8 Bit.mp3')
+        pygame.mixer.music.set_volume(0.5)
+        self.comeco = pygame.mixer.Sound('Sons/game-start-6104.mp3')
+        self.morte = pygame.mixer.Sound('Sons/game-over-arcade-6435.mp3')
+        self.morte_inimigo = pygame.mixer.Sound('Sons/morte 8bit.mp3')
+        self.morte_inimigo.set_volume(1.5)
+        self.pulo = pygame.mixer.Sound('Sons/8bit-jump.mp3')
+        self.pulo.set_volume(0.2)
+        self.dano = pygame.mixer.Sound('Sons/minecraft-damage_OTtnom6.mp3')
+        self.curar = pygame.mixer.Sound('Sons/heal.mp3')
+        self.curar.set_volume(0.5)
         self.mortee = False
 
         '''
@@ -83,6 +152,7 @@ class Jogo:
         tutorial = False
         tela = True
         ganhar = False
+        self.ja_passado = 0
         mapa = Mapa() # Cria o fundo
         jogador = Jogador(8, 320, self.grupo_inimigos) # Cria o personagem
         mapatiled = TiledMap((0, 0), pygame.sprite.Group()) # Cria o mapa
@@ -110,6 +180,17 @@ class Jogo:
                                 jogador.moving_right = False
                                 jogador.moving_left = False
                     if event.type == pygame.JOYBUTTONDOWN:
+                        if event.button == 7:
+                            tutorial = False
+                            jogador.rect.x = 8
+                            jogador.rect.y = 320
+                            jogador.vida = 3
+                            jogador.timer = 0
+                            jogador.contador = 0
+                            jogador.morto = False
+                            self.t0 = pygame.time.get_ticks()
+                            pygame.mixer.music.play()
+                        
                         if event.button == 0:
                             jogador.jump()
                             self.pulo.play()
@@ -154,9 +235,8 @@ class Jogo:
 
                 mapatiled.desenhar_tutorial(self.tela, self.camera)
                 self.tela.fill((0, 0, 0))
-                self.tela.blit(pygame.font.SysFont('arial', 30).render('Para pular o tutorial aperte Esc', True, (255, 255, 255)), (0, 30))
-                self.tela.blit(pygame.font.SysFont('arial', 30).render('Como jogar: teclas A e D, as setinhas ou um controle para mover o personagem', True, (255, 255, 255)), (0, 60))
-                self.tela.blit(pygame.font.SysFont('arial', 30).render('Seta para cima, espaço  ou  A/X no controle para pular', True, (255, 255, 255)), (0, 90))
+                self.tela.blit(pygame.font.SysFont('arial', 30).render('Para Prosseguir ao jogo elimine todos os inimigos', True, (255, 255, 255)), (0, 0))
+                self.tela.blit(pygame.font.SysFont('arial', 30).render('Como jogar: controle para mover o personagem e apeete A para pular', True, (255, 255, 255)), (0, 60))
                 self.tela.blit(pygame.font.SysFont('arial', 30).render('Cada sabão pego gannha 1 de vida (Maximo de 5)', True, (255, 255, 255)), (0, 120))
                 self.tela.blit(pygame.font.SysFont('arial', 30).render('Para eliminar um inimigo pule na cabeça dele', True, (255, 255, 255)), (0, 150))
                 jogador.desenha(self.tela)
@@ -232,8 +312,27 @@ class Jogo:
                         if event.button == 0:
                             jogador.jump()
                             self.pulo.play()
-                    
+                        if jogador.morto and event.button == 0:
+                            self.timer = 0
+                            self.ja_passado = pygame.time.get_ticks()
+                            jogador.rect.x = 8
+                            jogador.rect.y = 320
+                            jogador.vida = 3
+                            jogador.morto = False
+                            self.reiniciar()
+                            pygame.mixer.music.play()
+
                     if event.type == pygame.KEYDOWN:
+                        if jogador.morto and event.key == pygame.K_SPACE:
+                            self.timer = 0
+                            self.ja_passado = pygame.time.get_ticks()
+                            jogador.rect.x = 8
+                            jogador.rect.y = 320
+                            jogador.vida = 3
+                            jogador.morto = False
+                            self.reiniciar()
+                            pygame.mixer.music.play()
+                        
                         if event.key == pygame.K_RIGHT or event.key == pygame.K_d: # Movimentação
                             jogador.moving_right = True
                             jogador.flip = False
@@ -262,14 +361,14 @@ class Jogo:
 
                 if ganhar == False:
                     t1 = pygame.time.get_ticks()
-                    timer = (t1 - self.t0) // 1000
+                    self.timer = ((t1 - self.ja_passado) - self.t0) // 1000
 
                 self.tela.fill((0, 0, 0))
                 mapa.desenha(self.tela, self.camera ) # Desenha o fundo
                 mapatiled.desenhar_mapa(self.tela, self.camera) # Desenha o mapaa
                 jogador.desenha(self.tela) # Desenha o personagem
                 jogador.update(mapatiled.desenhar_mapa(self.tela,self.camera)) # Atualiza a posição do personagem
-                self.tela.blit(pygame.font.SysFont('arial', 30).render(f'Tempo: {timer}', True, (255, 255, 255)), (1000, 0))
+                self.tela.blit(pygame.font.SysFont('arial', 30).render(f'Tempo: {self.timer}', True, (255, 255, 255)), (1000, 0))
                 
                 for cura in self.grupo_cura:
                     cura.rotacao()
@@ -302,7 +401,7 @@ class Jogo:
                                     jogador.vida -= 1
                                     jogador.timer = 180
 
-                if self.inimigos_mortos == 1:
+                if self.inimigos_mortos == 9:
                     ganhar = True
 
                 if jogador.timer > 0:
@@ -317,13 +416,14 @@ class Jogo:
                         self.morte.play()
                         self.mortee = True
                     telagameover.desenha(self.tela)
+                    self.tela.blit(pygame.font.SysFont('arial', 30).render(f'Voce consegue, pressione A para recomecar a fase', True, (255, 255, 255)), (565, 560))
                     self.tela.blit(self.boneco_morto, (50,400))
                     jogador.morto = True
                 
                 if ganhar:
                     pygame.mixer.music.stop()
                     telawin.desenha(self.tela)
-                    self.tela.blit(pygame.font.SysFont('arial', 30).render(f'Seu tempo foi de {timer}', True, (0, 0, 0)), (482, 375))
+                    self.tela.blit(pygame.font.SysFont('arial', 30).render(f'Seu tempo foi de {self.timer}', True, (0, 0, 0)), (482, 375))
                 
                 self.relogio.tick(60)
                 

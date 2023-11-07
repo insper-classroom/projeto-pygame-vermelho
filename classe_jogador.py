@@ -32,6 +32,7 @@ class Jogador(pygame.sprite.Sprite):
         self.contador = 0
         self.grupo_inimigos = grupo_inimigos
         self.move_tempo = 0
+        self.morto = False
 
     def desenha(self, tela):
         '''

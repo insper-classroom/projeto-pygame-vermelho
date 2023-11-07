@@ -16,4 +16,4 @@ class Telainicial(pygame.sprite.Sprite):
         Desenha a tela inicial
         '''
         tela.blit(self.assets['telainicial'], (0, 0))
-        tela.blit(pygame.font.SysFont('arial', 50).render('Aperte espaço para prosseguir', True, (255, 255, 255)), (370, 540))
+        tela.blit(pygame.font.SysFont('arial', 50).render('Aperte A para prosseguir', True, (255, 255, 255)), (370, 540))
