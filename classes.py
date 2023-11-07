@@ -407,9 +407,14 @@ class Jogo:
                                     inimigo.vida -= 1
                                     jogador.velocidade_y = -10
                                 else:
-                                    self.dano.play()
-                                    jogador.vida -= 1
-                                    jogador.timer = 180
+                                    if inimigo.tipo == 'chefe':
+                                        self.dano.play()
+                                        jogador.vida -= 2
+                                        jogador.timer = 180
+                                    else:
+                                        self.dano.play()
+                                        jogador.vida -= 1
+                                        jogador.timer = 180
 
                 if self.inimigos_mortos == 9:
                     ganhar = True
@@ -419,6 +424,10 @@ class Jogo:
                     self.mensagem_ativada = True
                     self.tempo_mensagem = pygame.time.get_ticks()
 
+                if seta:
+                    setaa.desenha(self.tela, self.camera)
+                    setaa2.desenha(self.tela, self.camera)
+                
                 if self.exibir_mensagem:
                     if pygame.time.get_ticks() - self.tempo_mensagem > 3000:
                         self.exibir_mensagem = False

@@ -8,7 +8,7 @@ class Telagameover(pygame.sprite.Sprite):
         Inicializa as sprites da tela inicial
         '''
         self.assets = {}
-        self.assets['telagameover'] = pygame.image.load('img/gameover.png')
+        self.assets['telagameover'] = pygame.image.load('img/imagem-final-sabao.jpeg')
         self.assets['telagameover'] = pygame.transform.scale(self.assets['telagameover'], (1200, 600))
 
     def desenha(self, tela):
