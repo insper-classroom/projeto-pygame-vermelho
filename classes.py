@@ -407,7 +407,7 @@ class Jogo:
                                     inimigo.vida -= 1
                                     jogador.velocidade_y = -10
                                 else:
-                                    if inimigo.tipo == 'chefe':
+                                    if inimigo.tipo == 'chefe'  :
                                         self.dano.play()
                                         jogador.vida -= 2
                                         jogador.timer = 180
