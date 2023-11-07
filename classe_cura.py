@@ -5,7 +5,7 @@ class Cura(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.assets = {}
-        self.assets['cura'] = pygame.image.load('Site/imagens/logo-jogo 3.png')
+        self.assets['cura'] = pygame.image.load('docs/Site/imagens/logo-jogo 1.png')
         self.assets['cura'] = pygame.transform.scale(self.assets['cura'], (16, 16))
         self.imagem = self.assets['cura'].copy()
         self.rect = self.assets['cura'].get_rect()
