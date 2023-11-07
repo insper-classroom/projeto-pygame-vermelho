@@ -8,6 +8,8 @@ class Jogador(pygame.sprite.Sprite):
         '''
         pygame.sprite.Sprite.__init__(self)
         self.assets = {}
+        self.assets['vida'] = pygame.image.load('Site/imagens/logo-jogo 1.png')
+        self.assets['vida'] = pygame.transform.scale(self.assets['vida'], (64, 64))
         self.assets['jogador_idle'] = pygame.image.load('img/personagem-principal-parado.png')
         self.assets['jogador_move'] = pygame.image.load('img/personagem-pricipal-andando.png')
         self.assets['jogador_jump'] = pygame.image.load('img/personagem-principal-pulando.png')
@@ -46,7 +48,9 @@ class Jogador(pygame.sprite.Sprite):
             return
 
         tela.blit(jogador_imagem, (self.rect.x, self.rect.y))
-        tela.blit(pygame.font.SysFont('arial', 30).render('Vidas: ' + str(self.vida), True, (255, 255, 255)), (0, 0))
+        #desenha a vida baseado na quantidade de vidas
+        for i in range(self.vida):
+            tela.blit(self.assets['vida'], ((i * 64) - 15, -10))
 
     def jump(self):
         '''
