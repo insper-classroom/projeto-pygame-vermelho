@@ -1,0 +1,354 @@
+body {
+    background-color: black;
+}
+
+header {
+    background-color: black;
+    position: fixed;
+    width: 100%;
+    margin-top: -0.4%;
+}
+
+.icon-header{
+    max-width: 200px;
+    height: auto;
+    margin-left: -22%;
+    margin-top: -3%;
+    margin-bottom: -3%;
+    margin-right: -5%;
+}
+
+.divisions-site {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 15%;
+
+}
+
+/* ------------------------------------------------------------------------------- */
+
+.section-site {
+
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+    margin-top: 1.7%;
+
+
+    color: #fff; 
+    text-shadow: 
+    4px 4px 0 #C12855, 
+    -4px -4px 0 #C12855, 
+    4px -4px 0 #C12855, 
+    -4px 4px 0 #C12855;
+
+    text-decoration: none;
+}
+/* ------------------------------------------------------------------------------- */
+
+.div-logo-big {
+    text-align: center;
+}
+
+#logo-big {
+    margin-top: 5%;
+    margin-bottom: -10%;
+    width: 40%;
+}
+
+.div-video {
+   text-align: center;
+   margin-bottom: 2%;
+}
+
+/* ------------------------------------------------------------------------------- */
+
+.titulos-sect {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+
+    text-shadow: 
+    4px 4px 0 #C12855, 
+    -4px -4px 0 #C12855, 
+    4px -4px 0 #C12855, 
+    -4px 4px 0 #C12855
+}
+
+/*1*/
+
+
+
+.container-historia {
+    margin-top: -4%;
+    display: flex;
+}
+
+.personagem-principal-historia {
+    grid-column: 1/2;
+}
+
+.text-historia {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+
+    text-shadow: 
+    4px 4px 0 #C12855, 
+    -4px -4px 0 #C12855, 
+    4px -4px 0 #C12855, 
+    -4px 4px 0 #C12855;
+
+;
+}
+
+.personagem-inimigo-historia {
+
+    margin-top: -1%;
+}
+
+/* ------------------------------------------------------------------------------- */
+
+.imagens-dimensionadas {
+    width: 50%;
+    border-radius: 60px;
+    border: 10px solid #C12855;
+}
+
+
+/*2*/
+
+.linha-tres-imagens {
+
+    display: flex;
+    margin-top: 10%;
+    margin-left: 5%;
+    margin-bottom: 10%;
+}
+
+.personagem-grizalho {
+    width: 20%;
+    margin-left: 15%;
+}
+
+/* ------------------------------------------------------------------------------- */
+
+.container-tutorial {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-bottom: 10%;
+}
+
+.passos-tutorial {
+    width: 421px;
+    height: 751px;
+
+    border-radius: 100px;
+    border: 10px solid rgba(193, 40, 85, 0.30);
+    background: #FD9DA2;
+
+    text-align: center;
+}
+
+.texto-tutorial {
+    color: #FFF;
+
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+    text-shadow: 
+    4px 4px 0 #C12855, 
+    -4px -4px 0 #C12855, 
+    4px -4px 0 #C12855, 
+    -4px 4px 0 #C12855;
+
+}
+
+/* ------------------------------------------------------------------------------- */
+
+/*3*/
+
+.descricao-produtores {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+
+    text-shadow: 
+    4px 4px 0 #C12855, 
+    -4px -4px 0 #C12855, 
+    4px -4px 0 #C12855, 
+    -4px 4px 0 #C12855;
+
+    justify-content: center;
+
+    width: 50%;
+
+    text-align: center;
+
+}
+
+.container-descricao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ------------------------------------------------------------------------------- */
+
+.conteiner-commits {
+    background: #FD9DA2;
+    border-radius: 60px;
+    margin-right: 10%;
+    margin-left: 10%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+
+    border: 10px solid #C12855;
+}
+
+/*4*/
+
+.botao-download {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.texto-download {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+
+    text-shadow: 
+    4px 4px 0 #C12855, 
+    -4px -4px 0 #C12855, 
+    4px -4px 0 #C12855, 
+    -4px 4px 0 #C12855;
+}
+
+.instrucoes-download {
+
+    text-align: left;
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-bottom: 10%;
+}
+
+.topicos-download {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+    ;
+
+    text-shadow: 
+    4px 4px 0 #C12855, 
+    -4px -4px 0 #C12855, 
+    4px -4px 0 #C12855, 
+    -4px 4px 0 #C12855;
+}
+
+/* ------------------------------------------------------------------------------- */
+
+.container-relatos {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10%;
+}
+
+.relatos {
+
+    background: #FD9DA2;
+    width: 450px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 15px 15px 15px 15px;
+ 
+
+}
+
+.texto-relato {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+
+    text-shadow: 
+    4px 4px 0 #C12855, 
+    -4px -4px 0 #C12855, 
+    4px -4px 0 #C12855, 
+    -4px 4px 0 #C12855;
+}
+
+/* ------------------------------------------------------------------------------- */
+
+
+.conteiner-footer {
+    background-color: #FD9DA2;
+    display: flex;
+    justify-content: space-around; 
+    text-align: center;
+}
+
+
+
+.social-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.links {
+    display: block;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 900;
+    text-shadow: 1.5px 1.5px 0 #C12855, -1.5px -1.5px 0 #C12855, 1.5px -1.5px 0 #C12855, -1.5px 1.5px 0 #C12855;
+    text-decoration: none;
+    margin: 5px; 
+}
+
+.github {
+    margin-left:  -60%;
+    margin-top: 5%;
+}
+
+.linkedin {
+    margin-right: -60%;
+    margin-top: 5%;
+}
