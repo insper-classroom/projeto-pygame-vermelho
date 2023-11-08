@@ -8,7 +8,7 @@ class Jogador(pygame.sprite.Sprite):
         '''
         pygame.sprite.Sprite.__init__(self)
         self.assets = {}
-        self.assets['vida'] = pygame.image.load('docs/Site/imagens/logo-jogo 1.png')
+        self.assets['vida'] = pygame.image.load('docs/imagens/logo-jogo 1.png')
         self.assets['vida'] = pygame.transform.scale(self.assets['vida'], (64, 64))
         self.assets['jogador_idle'] = pygame.image.load('img/personagem-principal-parado.png')
         self.assets['jogador_move'] = pygame.image.load('img/personagem-pricipal-andando.png')

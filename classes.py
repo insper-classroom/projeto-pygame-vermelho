@@ -82,7 +82,7 @@ class Jogo:
         '''
         self.grupo_cura = pygame.sprite.Group()
         cura1 = Cura(1100, 370)
-        cura2 = Cura(500, 443)
+        cura2 = Cura(483, 435)
         cura3 = Cura(1400, 560)
         self.grupo_cura.add(cura1)
         self.grupo_cura.add(cura2)
