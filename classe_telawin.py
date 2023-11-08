@@ -8,7 +8,7 @@ class TelaWin(pygame.sprite.Sprite):
         Inicializa as sprites da tela final
         '''
         self.assets = {}
-        self.assets['telawin'] = pygame.image.load('img/Win.png')
+        self.assets['telawin'] = pygame.image.load('img/imagem-final-sabao.jpeg')
         self.assets['telawin'] = pygame.transform.scale(self.assets['telawin'], (1200, 600))
 
     def desenha(self, tela):

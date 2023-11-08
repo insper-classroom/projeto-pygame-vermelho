@@ -247,7 +247,7 @@ class Jogo:
                 mapatiled.desenhar_tutorial(self.tela, self.camera)
                 self.tela.fill((0, 0, 0))
                 self.tela.blit(pygame.font.SysFont('arial', 30).render('Para Prosseguir ao jogo elimine todos os inimigos', True, (255, 255, 255)), (0, 30))
-                self.tela.blit(pygame.font.SysFont('arial', 30).render('Como jogar: controle para mover o personagem e apeete A para pular', True, (255, 255, 255)), (0, 60))
+                self.tela.blit(pygame.font.SysFont('arial', 30).render('Como jogar: controle para mover o personagem e aperte A para pular', True, (255, 255, 255)), (0, 60))
                 self.tela.blit(pygame.font.SysFont('arial', 30).render('Cada sabão pego gannha 1 de vida (Maximo de 5)', True, (255, 255, 255)), (0, 90))
                 self.tela.blit(pygame.font.SysFont('arial', 30).render('Para eliminar um inimigo pule na cabeça dele', True, (255, 255, 255)), (0, 120))
                 jogador.desenha(self.tela)
